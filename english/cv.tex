@@ -2,7 +2,9 @@
 
 %=========================== PACKAGES =============================%
 \usepackage[utf8]{inputenc}
-\usepackage[left=0.7cm,right=0.7cm,vmargin=1.2cm]{geometry}
+\usepackage[left=1.0cm,right=1.0cm,vmargin=1.8cm]{geometry}
+\usepackage{longtable}
+\usepackage{changepage}
 
 %--- LANGUE--%
 \usepackage[english]{babel}
@@ -19,12 +21,52 @@
 \usepackage{wrapfig}
 %--- PHOTO ----%
 
+%--- TABLES ---%
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\definecolor{arternatinggray}{gray}{0.95}
+
+\makeatletter
+\newcommand{\groupedRowColors}[5][0]{% [#1: offset], #2: group size, #3: start line, #4: color 1, #5: color 2
+    % copied from xcolor.sty
+    \global\rownum=\z@
+    \global\@rowcolorstrue
+    \@ifxempty{#4}%
+        {\def\@oddrowcolor{\@norowcolor}}%
+        {\def\@oddrowcolor{\gdef\CT@row@color{\CT@color{#4}}}}%
+    \@ifxempty{#5}%
+        {\def\@evenrowcolor{\@norowcolor}}%
+        {\def\@evenrowcolor{\gdef\CT@row@color{\CT@color{#5}}}}%
+    % simplified (no check for \if@rowcmd)
+    \def\@rowcolors{%
+        \if@rowcolors
+            \noalign{%
+                \relax
+                \ifnum\rownum<#3
+                    \@norowcolor
+                % I have changed this check:
+                \else \ifodd \numexpr (\rownum-#1)/#2\relax
+                    \@oddrowcolor
+                \else
+                    \@evenrowcolor
+                \fi \fi
+            }%
+        \fi
+    }%
+    \CT@everycr{\@rowc@lors\the\everycr}%
+    \ignorespaces
+}
+\makeatother
+%--- TABLES ---%
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
 
 {\renewcommand{\arraystretch}{1.3}}
 
 \usepackage{titlesec} % Used to customize the \section command
 \titleformat{\section}{\large \bf \uppercase}{}{0pt}{}[\titlerule] % Text formatting of sections
-\titlespacing{\section}{17pt}{8pt}{5pt} % Spacing around sections
+\titlespacing{\section}{5pt}{5pt}{0pt} % Spacing around sections
 
 %=========================== PACKAGES =============================%
 
@@ -33,7 +75,7 @@
 
 \begin{document}
 
-\pagestyle{empty} 
+\pagestyle{empty}
 
 %--- PUT YOUR PHOTO, IF NECESSARY --%
 \begin{wrapfigure}{r}{3cm}
@@ -44,215 +86,138 @@
 \end{wrapfigure}
 %--- PHOTO --%
 
+\begin{changemargin}{0.2cm}{0.0cm}
+
 %======== PRENON ET NOM =========%
 \textbf{\LARGE Gustavo CIOTTO PINTON}
 %======== PRENON ET NOM =========%
 
 %======== ADRESSE ===============%
-Rua Voluntario Amador Lourenço, 57, Nova Itália, Valinhos
+Rua Voluntario Amador Lourenço, 57, Nova Itália, Valinhos\\
+\textit{CEP 13271-393}, São Paulo, Brazil\\
+(+55) 19 99898 5633, 25 years old\\
+\url{gustavociotto@gmail.com}\\
+\url{https://www.linkedin.com/in/gustavociotto/}\\*
+\end{changemargin}  
 
-\textit{CEP 13271-393}, São Paulo, Brazil
-
-(+55) 19 99898 5633, 23 years old
-
-\url{gustavociotto@gmail.com} 
-
-\url{http://gciotto.github.io/portfolio}\\*
 %======== ADRESSE ===============%
-
-%{\centerline {\large Computer Engineering student at University of Campinas}} 
-
 
 %======== FORMATION ===============%
 \section{Educational Background}
+\label{sec:educational_background}
+\groupedRowColors{2}{0}{arternatinggray}{white}
+\begin{longtable}{p{.10\textwidth} p{.85\textwidth}}
 
-\begin{tabular}{p{.14\textwidth} p{.80\textwidth}}
+\textbf{2016 - Now} & \textbf{UNICAMP University of Campinas}, Campinas, Brazil. \\
+& Master's degree in Computer Science - currently attending classes as special student. \vspace{4pt}\\
 
-\textbf{2016 - Present} & \textbf{UNICAMP University of
- Campinas}, Campinas, Brazil.
-\\
-& Master's degree in Computer Science - currently attending classes as special
-student. \vspace{4pt}\\
+ \textbf{2015 - 2016} & \textbf{UNICAMP University of  Campinas}, Campinas, Brazil.  \\
 
- \textbf{2015 - 2016} & \textbf{UNICAMP University of
- Campinas}, Campinas, Brazil.
- \\
- \textbf{2011 - 2013} & Undergraduate -  major in
- Computer Engineering. Graduated with distinction.\vspace{4pt}
- \\ 
+ \textbf{2011 - 2013} & Undergraduate -  major in  Computer Engineering. Graduated with distinction.\vspace{4pt}  \\
 
- \textbf{2013 - 2015} & \textbf{SUPÉLEC  École Supérieure d'électricité},
- Gif-Sur-Yvette, France. \\
- & Double Degree in Electrical and Computer Engineering. \vspace{4pt}\\
+ \textbf{2013 - 2015} & \textbf{SUPÉLEC  École Supérieure d'électricité},  Gif-Sur-Yvette, France. \\
+ & Double degree in Electrical and Computer Engineering. \vspace{4pt}\\
 
- 
- \textbf{2008 - 2011} & \textbf{COTUCA – Technical School of Campinas},
- Campinas, Brazil. \\
+\textbf{2008 - 2011} & \textbf{COTUCA – Technical School of Campinas},  Campinas, Brazil. \\
  & Technical degree in Computer Science. \\
-\end{tabular}
+
+\end{longtable}
 
 %======== FORMATION ===============%
 
-
 %======== COMPETENCES ===============%
 \section{Language Skills}
+\label{sec:language_skills}
+\groupedRowColors{1}{0}{arternatinggray}{white}
+\begin{longtable}{p{.10\textwidth} p{.85\textwidth}}
 
-\begin{tabular}{p{.14\textwidth} p{.80\textwidth}}
+\textbf{Portuguese} & Mother tongue.\\
 
-\textbf{Portuguese} & Mother tongue.\\ 
+\textbf{French} & \textbf{562} points on \textbf{TCF}, equivalent to the C1 CEFR level (May 2015). \\
 
-\textbf{French} & \textbf{562} points on \textbf{\textit{TCF}},
-equivalent to the \textbf{C1} CEFR level. Test date \textit{May 2015}.
-\\
-
-\textbf{English} & \textbf{633} points out of 677 on \textbf{\textit{TOEFL
-ITP}}. Test date \textit{March 2015}.
-\\
-
-\end{tabular}
-
+\textbf{English} & \textbf{633} out of 677 on \textbf{TOEFL ITP} (March 2015). \\
+\end{longtable}
 
 \section{Computer Skills}
+\label{sec:computer_skills}
+\groupedRowColors{1}{0}{arternatinggray}{white}
+\begin{longtable}{p{.10\textwidth} p{.85\textwidth}}
 
-\begin{tabular}{p{.14\textwidth} p{.80\textwidth}}
+ \textbf{Systems} & Android, Linux (Ubuntu, ArchLinux distributions and Embedded Linux), Windows. \\
 
- \textbf{Systems} & Linux (Ubuntu, ArchLinux distribuitions and Embedded Linux),
- Windows.
- \\
-
- \textbf{Languages} & C/C++, Python, Java, PHP, SQL, \LaTeX.
- \\
- 
- \textbf{Software} & Eclipse, \textit{Qt} Creator, Kinetis Design Studio,
- Control System Studio, Matlab, MySQL Workbench, Microsoft SQL Server, Microsoft
- Visual Studio.\\
- 
-  \textbf{Embedded} & BeagleBone, FRDM-KL25Z. \\
-\end{tabular}
+ \textbf{Languages} & C/C++, Python, Java, \LaTeX. \\
+\end{longtable}
 
 %======== COMPETENCES ===============%
-
 
 %======== EXPERIENCES ===============%
 \section{Professional Experience}
+\label{sec:professional_experience}
+\groupedRowColors{2}{0}{arternatinggray}{white}
+\begin{longtable}{p{.10\textwidth} p{.85\textwidth}}
 
-\begin{tabular}{p{.14\textwidth} p{.79\textwidth}}
+\textbf{Now}  & Software engineer, \textbf{Eldorado Research Institute, Campinas, Brazil.} \\
+\textbf{Aug/2018} & \vspace{-12pt}
+  \begin{itemize}    
+    \item As part of the multimedia engine team, worked in the development and bug correction of Android's camera bottom layers (HAL and kernel driver source code), including support for Google's compliance tests (CTS), Android upgrades and device bring-ups.
+  \end{itemize} \\
 
-\textbf{Present}  & Development Analyst, \textbf{Brazilian Synchrotron Light
-Source Laboratory - LNLS, Campinas, Brazil.}
-\\
-  & \vspace{-12pt}
+\textbf{July/2018}  & Development analyst, \textbf{Brazilian Synchrotron Light Source Laboratory - LNLS, Campinas, Brazil.} \\
+\textbf{Feb/2017} & \vspace{-12pt}
   \begin{itemize}
-    \item Management of EPICS
-    control services. Development of Linux Kernel Module Drivers for embededded Linux.
-	\end{itemize}\\
+    \item Main responsible of the Controls Group's network topology (routing and switching) conception and hardware specification. Design and management of the group's IT service infra-structure, including servers and storage units: GlusterFS, Docker Swarm (and Compose), Kubernetes. Development of general embedded applications in C, C++ and Python based on Qt framework and EPICS APIs.
+  \end{itemize} \\
 
-\textbf{02/2016 - 12/2016}  & Intern, \textbf{Brazilian Synchrotron Light
-Source Laboratory - LNLS, Campinas, Brazil.}
- \\
-  & \vspace{-12pt}
+\textbf{Dec/2016}  & Intern, \textbf{Brazilian Synchrotron Light Source Laboratory - LNLS, Campinas, Brazil.}  \\
+\textbf{Feb/2016}  & \vspace{-12pt}
   \begin{itemize}
-    \item Development of software and hardware for the Sirius synchrotron light
-    source's control system. Installation of EPICS
-    control systems - alarms monitor, variables archiver and \textit{StreamDevice}.
-    Development of Linux Kernel Module Drivers for a BeagleBone Black board.
-    Development of Qt and general applications for embededded Linux.
-    
-	\end{itemize}\\
+    \item Software and hardware development for Sirius synchrotron light source's control system. Development of Linux kernel module drivers and general applications for embedded devices based on Qt framework and EPICS APIs.
+  \end{itemize} \\
 
-\textbf{08/2015 - 12/2015}  & Laboratory assistant, \textbf{FEEC
- UNICAMP, Campinas, Brazil.}
- \\
-  & \vspace{-12pt}
+\textbf{Dec/2015}  & Undergraduate teaching assistant, \textbf{FEEC UNICAMP, Campinas, Brazil.}  \\
+\textbf{Aug/2015}  & \vspace{-12pt}
   \begin{itemize}
-    \item Assigned to assist the students during the lab sessions of the
-    discipline \textit{EA871 - Laboratory of Digital Systems Programming
-    }. Programming of the NXP's FRDM-KL25Z kit.
-        
-	\end{itemize}\\
+    \item Assisted the students during the \textit{Laboratory of Digital Systems Programming} course's lab sessions. Each session focused on a different feature  available in the FRDM-KL25Z kit, such as general-purpose IOs, DA/AD converters, I2C interfaces, UART, PWM and IRQ interruptions.
+  \end{itemize} \\
 
-%  \textbf{07/2014 - 09/2014} & Production Intern, \textbf{ELIS, Brétigny-sur-Orge, France.}\\
-%   & \vspace{-12pt}  
-%   \begin{itemize}
-%     \item Prepared customers' orders.
-%     \item Assigned to laundry sorting and machines operation.
-%   \end{itemize} \\
-
-
- \textbf{02/2013 - 07/2013}   & Laboratory assistant, \textbf{IC UNICAMP -
- Institute of Computing, Campinas, Brazil} \\
- & \vspace{-12pt} 
-	 \begin {itemize} 
-	   	\item Worked within a fundamental algorithms discipline (arrays, sorting and search algorithms, recursion, pointers, files)
-	 taught to first year Computer Engineering students at UNICAMP. \vspace{-4pt}
-	 	\item Assigned to assist the students during fifteen lab sessions and to
-	 create exercises and projects, developed in C language.
+ \textbf{July/2013}   & Undergraduate teaching assistant, \textbf{IC UNICAMP - Institute of Computing, Campinas, Brazil} \\
+ \textbf{Feb/2013} & \vspace{-12pt}
+	 \begin {itemize}
+	   	\item Assigned to assist the students enrolled in the \textit{Algorithms and Computer Programming} course, consisting of a course taught to the first-year computer engineering students.
 	 \end{itemize} \\
 
- \textbf{08/2011 - 06/2012} & Undergraduate research activity based on computer
- networks, \textbf{IC UNICAMP, Campinas, Brazil}.   \\
- & 
- 	\vspace{-12pt}
-	\begin{itemize}
-   	\item Analyzed the performance of distributed programs in terms of
- 		operating systems, Java Virtual Machine (JVM) and hardware conditions.
- 	\end{itemize} \\
- %and developed  tools that make simulation and analyzing processes easier. \\
- 
- 
- \textbf{12/2010 - 02/2011} & Intern, \textbf{MOVILE, Campinas, Brazil}.\\
- &
+ \textbf{Feb/2011} & Technical intern, \textbf{Movile, Campinas, Brazil}.\\
+ \textbf{Dec/2010} &
  \vspace{-12pt}
-	\begin{itemize} 
- 	\item Maintained the company’s database (MySQL Server) and web systems (PHP
- 	and JavaScript).  
-	\end {itemize} 	\\
- 
-\end{tabular}
+	\begin{itemize}
+ 	    \item Assigned to fetch service reports from the company’s databases, hosted mainly on MySQL and Postgres servers. Short time in the web development area, where acted to fix bugs in JS and PHP scripts.
+  \end {itemize}
+\end{longtable}
 
 %======== PUBLICATIONS ===============%
-
 \section{Publications}
-
-\begin{tabular}{p{.14\textwidth} p{.78\textwidth}}
-
-\textbf{07/2016}  & \textit{S. Lescano, A. R. D. Rodrigues, E. P.
-Coelho, G. C. Pinton, J. G. R. S. Franco and P. H. Nallin}. \textbf{UVX
-control system: An approach with Beaglebone Black}. Personal Computers and
-Particle Accelerator Controls, 2016. \\
-
-\end{tabular}
-
+\label{sec:plubications}
+\groupedRowColors{2}{0}{arternatinggray}{white}
+\begin{longtable}{p{.10\textwidth} p{.85\textwidth}}
+    \textbf{July/2016}  & \textit{S. Lescano, A. R. D. Rodrigues, E. P. Coelho, G. C. Pinton, J. G. R. S. Franco and P. H. Nallin}. \textbf{UVX control system: An approach with Beaglebone Black}. Personal Computers and Particle Accelerator Controls, 2016. \\
+\end{longtable}
 %======== PUBLICATIONS ===============%
 
+%======== AWARDS ===============%
 \section{Awards}
+\label{sec:awards}
+\groupedRowColors{2}{0}{arternatinggray}{white}
+\begin{longtable}{p{.10\textwidth} p{.85\textwidth}}
 
-\begin{tabular}{p{.14\textwidth} p{.78\textwidth}}
+\textbf{Dec/2016}  & \textbf{Engineering Institute Award, Instituto de Engenharia} \newline 
+                     \textbf{Honorable Mention Certificate, CREA-SP}. \newline
+                     \textbf{Outstanding Student, Brazilian Computer Society}. \\
+& Best student of the graduating class of 2016 of the Faculty of Electrical and Computer Engineering - FEEC - UNICAMP. \vspace{4pt} \\
 
-\textbf{06/2013}  & \textbf{Eiffel Excellence Scholarship Winner, Campus
-France}. \vspace{4pt} \\
 
-\textbf{12/2016}  & \textbf{Engineering Institute Award, Instituto de
-Engenharia}.\\
-& Best student of the graduating class of 2016 of the Faculty of Electrical and
-Computer Engineering - FEEC - UNICAMP. \vspace{4pt}\\
-
-\textbf{12/2016}  & \textbf{Honorable Mention Certificate, CREA-SP}. \\
-& Best student of the graduating class of 2016 of the Faculty of Electrical and
-Computer Engineering - FEEC - UNICAMP. \vspace{4pt}\\
-
-\end{tabular}
-
-%======== ACTIVITES ===============%
-% \section{Extracurricular Activities}
-% 
-% \begin{tabular}{p{.14\textwidth} p{.80\textwidth}}
-% 
-% \textbf{Sport} & tennis and soccer. \\ 
-% 
-% \end{tabular}
-
-%======== ACTIVITES ===============%
+\textbf{June/2013}  & \textbf{Eiffel Excellence Scholarship Winner, Campus France}. \\
+&  \vspace{4pt} \\
+\end{longtable}
+%======== AWARDS ===============%
 
 \end{document}
-
